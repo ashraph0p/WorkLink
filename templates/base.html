@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block styles %}
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+            <link rel="stylesheet" href="static/styles.css">
+            <!-- Bootstrap CSS -->
+            {{ bootstrap.load_css() }}
+        {% endblock %}
+
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="#"><img
+                    src="static/logo.svg" alt=""></a>
+            <ul class="nav nav-pills me-3">
+                <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Freelancers</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" >Sign in</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active">Join</a></li>
+            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarDark"
+                 aria-labelledby="offcanvasNavbarDarkLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Offcanvas</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <form class="d-flex mt-3" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Join</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Add a Project</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- Your page content -->
+<main>{% block content %}{% endblock %}</main>
+<!-- End of Page Content -->
+<div class="footer">
+    <div class="container pt-3">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5 mt-5 pb-2">
+        <div class="col mb-3">
+            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                <img src="static/logo.svg" alt="" class="img-fluid w-100">
+            </a>
+            <p class="py-0 mb-1">Follow us:</p>
+            <i class="bi bi-instagram h3 pe-1"></i>
+            <i class="bi bi-linkedin h3 pe-1"></i>
+            <i class="bi bi-facebook h3 pe-1"></i>
+{#            <p class="py-0 mb-1">Available Payment Methods:</p>#}
+{#            <i class="bi bi-credit-card h3 pe-1"></i>#}
+{#            <i class="bi bi-paypal h3 pe-1"></i>#}
+        </div>
+
+        <div class="col mb-3">
+
+        </div>
+
+        <div class="col mb-3">
+            <h5>Projects</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Business Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Programming Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Engineering & Architecture Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Design Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Marketing Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Writing & Translation Projects</a></li>
+            </ul>
+        </div>
+
+        <div class="col mb-3">
+            <h5>Work Link</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Guarantee Your Rights</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Terms of Use</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Privacy Statement</a></li>
+            </ul>
+        </div>
+
+        <div class="col mb-3">
+            <h5>Links</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Companies</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Freelancers</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Services</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Business Gallery</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Browse Projects</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Contact Us</a></li>
+            </ul>
+        </div>
+        <p class="d-flex text-center justify-content-center w-100 mt-4">© Mas Elafak Company 2024. All Rights Reserved</p>
+    </footer>
+</div>
+</div>
+{% block scripts %}
+    <!-- Optional JavaScript -->
+    {{ bootstrap.load_js() }}
+{% endblock %}
+</body>
+</html>
