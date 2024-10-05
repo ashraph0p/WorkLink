@@ -3,7 +3,7 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.11 (WorkLink)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (WorkLink)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (WorkLink)" project-jdk-type="Python SDK" />
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
   </component>
