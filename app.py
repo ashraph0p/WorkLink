@@ -77,14 +77,25 @@ def home():  # put application's code here
 def join():
     form = Makeaccount()
     if form.validate_on_submit():
-        with app.app_context():
+        existing_user = User.query.filter_by(email=form.email.data).first()
+        if existing_user:
+            flash("User already exists with this email.", "danger")
+            return redirect(url_for('join'))
+        else:
             new_user = User()
             new_user.name = request.form['name']
+            new_user.family_name = request.form['family_name']
+            new_user.email = request.form['email']
+            new_user.password = request.form['password']
+            new_user.confirm = request.form['confirm']
             db.session.add(new_user)
             db.session.commit()
         return redirect(url_for("profile", id=new_user.id))
-
     return render_template('join.html', form=form)
+
+
+
+
 
 
 # User login route
@@ -93,7 +104,7 @@ def sign_in():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and user.password == form.password.data:  # Should be hashed password comparison
+        if user and user.password == form.password.data:
             login_user(user)
             return redirect(url_for('profile', id=user.id))
         else:
