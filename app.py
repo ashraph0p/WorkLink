@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from wtforms import StringField, EmailField, PasswordField, BooleanField
+from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 import os
 
@@ -45,7 +46,7 @@ class Makeaccount(FlaskForm):
     family_name = StringField('Family Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. Smith"})
     email = EmailField('Email', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith1998@gmail.com"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Enter your Password"})
-    confirm = BooleanField('I have read and agree to terms of use and Privacy Statement.')
+    confirm = BooleanField('I have read and agree to terms of use and Privacy Statement.', validators=[DataRequired()])
 
 
 # User login form
@@ -53,6 +54,7 @@ class LoginForm(FlaskForm):
     email = EmailField('Email', validators=[DataRequired(), Email()],
                        render_kw={"placeholder": "Ex. johnsmith1998@gmail.com"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Enter your Password"})
+    button = SubmitField('Log In')
 
 
 # Create tables if not already created
@@ -82,20 +84,17 @@ def join():
             flash("User already exists with this email.", "danger")
             return redirect(url_for('join'))
         else:
+            confirm_bool = bool(form.confirm.data)
             new_user = User()
             new_user.name = request.form['name']
             new_user.family_name = request.form['family_name']
             new_user.email = request.form['email']
             new_user.password = request.form['password']
-            new_user.confirm = request.form['confirm']
+            new_user.confirm = confirm_bool
             db.session.add(new_user)
             db.session.commit()
         return redirect(url_for("profile", id=new_user.id))
     return render_template('join.html', form=form)
-
-
-
-
 
 
 # User login route
