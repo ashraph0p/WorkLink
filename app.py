@@ -56,6 +56,9 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Enter your Password"})
     button = SubmitField('Log In')
 
+# Step 1 Onboarding Form
+# Step 2 Onboarding Form
+# Step 3 Onboarding Form
 
 # Create tables if not already created
 with app.app_context():
@@ -65,7 +68,7 @@ with app.app_context():
 # Load user by ID for flask-login
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(int(user_id))
 
 
 # Home route
@@ -94,7 +97,7 @@ def join():
             db.session.add(new_user)
             db.session.commit()
         return redirect(url_for("profile", id=new_user.id))
-    return render_template('join.html', form=form)
+    return render_template('join.html', form=form, logged=current_user)
 
 
 # User login route
@@ -108,14 +111,15 @@ def sign_in():
             return redirect(url_for('profile', id=user.id))
         else:
             flash('Invalid email or password.', 'danger')
-    return render_template('sign_in.html', form=form)
+    return render_template('sign_in.html', form=form, logged=current_user)
 
 
 # User profile route
 @app.route('/profile/<int:id>', methods=['GET'])
+@login_required
 def profile(id):
     user = User.query.get_or_404(id)
-    return f'<h1>Welcome, {user.name} {user.family_name}</h1>'
+    return render_template('profile.html', user=user, logged=current_user)
 
 
 # Logout route
