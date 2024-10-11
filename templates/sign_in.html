@@ -6,7 +6,7 @@
 {% block title %}Worklink{% endblock %}
 
 {% block content %}
-    <section>
+    <section class="form-page">
         <h1 class="text-center mt-5">Sign In</h1>
         <article class="form-signin w-100 m-auto mb-5">
             <div class="container my-5">
@@ -26,7 +26,7 @@
                         </div>
                         <p class="text-center">OR</p>
                         <hr>
-                        {{ render_form(form) }}
+                        {{ render_form(form, form_inline_classes="w-100") }}
 
                     </div>
                     <div class="col-lg-5 offset-lg-1 p-0 overflow-hidden mb-5 pb-5">

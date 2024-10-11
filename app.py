@@ -5,7 +5,7 @@ from flask_login import UserMixin, LoginManager, login_required, current_user, l
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from wtforms import StringField, EmailField, PasswordField, BooleanField
+from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 import os
@@ -57,6 +57,17 @@ class LoginForm(FlaskForm):
     button = SubmitField('Log In')
 
 # Step 1 Onboarding Form
+class Step1(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith08"})
+    account_type = RadioField(
+        'Account type',
+        choices=[
+            ('freelancer', 'Freelancer (Services seller / Project implementer)'),
+            ('project_owner', 'Project owner (Project owner / Services buyer)'),
+            ('company', 'Company (Remote Hiring of Freelancers)')
+        ],
+        validators=[DataRequired()])
+    button = SubmitField('Next Step')
 # Step 2 Onboarding Form
 # Step 3 Onboarding Form
 
@@ -119,7 +130,8 @@ def sign_in():
 @login_required
 def profile(id):
     user = User.query.get_or_404(id)
-    return render_template('profile.html', user=user, logged=current_user)
+    form = Step1()
+    return render_template('profile.html', user=user, logged=current_user, form=form)
 
 
 # Logout route

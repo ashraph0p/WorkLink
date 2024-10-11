@@ -85,3 +85,14 @@ h1, h2, h3, h4, h5, h6, a, p, button {
     list-style-image: url("home_page/checkmark.svg")
 }
 /* Home page Customization */
+body {
+    background-color: #EAEAEA !important;
+}
+section article div {
+    background-color: white;
+    border-radius: 25%
+}
+article form input {
+    width: 100%
+}
+/*Sign up Customization*/
