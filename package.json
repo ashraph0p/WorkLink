@@ -1,6 +1,6 @@
 {
   "name": "worklink",
-  "version": "1.0.0",
+  "version": "3",
   "main": "app.py",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,5 +8,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.py"
+    }
+  ]
 }
