@@ -22,7 +22,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # Configuration
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['SECRET_KEY'] = os.urandom(12)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
@@ -79,7 +79,7 @@ with app.app_context():
 # Load user by ID for flask-login
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 
 # Home route
@@ -143,4 +143,4 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
