@@ -22,7 +22,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 # Configuration
-app.config['SECRET_KEY'] = os.urandom(12)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
