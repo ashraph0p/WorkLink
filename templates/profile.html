@@ -1,10 +1,13 @@
 {% extends "base.html" %}
-{#{% from 'bootstrap5/form.html' import render_form %}#}
+{% from 'bootstrap5/form.html' import render_form %}
 {% block title %}Worklink{% endblock %}
 
 {% block content %}
     <section class="my-5 ">
-        <h1 class="text-center">Hello, {{ user.name }}!</h1>
+        <div class="d-flex row justify-content-center w-75 text-center m-auto">
+            <h1 class="text-center my-5 h1 text-body-emphasis">Hello, {{ user.name }}!</h1>
+            <img src="/static/onboarding/step1.svg" alt="" class="img-fluid w-100">
+        </div>
         <article class="form-signin w-75 m-auto mb-5">
             <div class="container my-5">
                 <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5 justify-content-center">
@@ -27,8 +30,8 @@
 
                                 <!-- Loop through radio choices -->
                                 {% for subfield in form.account_type %}
-                                    <div class="form-check mb-2 onboard-radio p-3 rounded shadow-sm">
-                                        {{ subfield(class="form-check-input mx-1 ") }}
+                                    <div class="form-check mb-2 onboard-radio p-2 my-2 rounded shadow-sm">
+                                        {{ subfield(class="form-check-input mx-1") }}
                                         <label class="form-check-label" for="{{ subfield.id }}">
                                             {{ subfield.label.text.split(' (')[0] }}
                                         </label>

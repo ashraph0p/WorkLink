@@ -42,6 +42,13 @@ class User(UserMixin, db.Model):
     confirm: Mapped[bool] = mapped_column(nullable=False)
 
 
+# Onboarding options model
+class Details(db.Model):
+    __tablename__ = 'details'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(nullable=False)
+    account_type: Mapped[int] = mapped_column(nullable=False)
+
 # User registration form
 class Makeaccount(FlaskForm):
     name = StringField('Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. John"})
@@ -63,19 +70,27 @@ class LoginForm(FlaskForm):
 class Step1(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith08"})
     account_type = RadioField('Account type', choices=[
-        ('freelancer', 'Freelancer (Services Seller / Project Implementer)'),
-        ('project_owner', 'Project Owner (Services Buyer)'),
-        ('company', 'Company (Remote Hiring of Freelancers)')],
+        ('1', 'Freelancer (Services Seller / Project Implementer)'),
+        ('2', 'Project Owner (Services Buyer)'),
+        ('3', 'Company (Remote Hiring of Freelancers)')],
                               validators=[DataRequired()])
     button = SubmitField('Next')
 
 
 # Step 2 Onboarding Form
 class Step2(FlaskForm):
-    specifics = SelectField('Specialization')
-    job_title = StringField('Job Title', validators=[DataRequired()], render_kw={"placeholder": "Ex. Project Manager"})
+    specifics = SelectField('Specialization', choices=[
+        ('translate', 'Translate'),
+        ('web_design', 'Web design'),
+        ('web_development', 'Web development'),
+        ('illustrator', 'Illustrator'),
+        ('article_writing', 'Article Writing'),
+        ('graphic_design', 'Graphic Design'),
+        ('logo_design', 'Logo Design')
+    ])
+    job_title = SelectField('Job Title', validators=[DataRequired()], render_kw={"placeholder": "Ex. Project Manager"})
     biography = CKEditorField('Biography', validators=[DataRequired()])
-    skills = StringField('Skills', validators=[DataRequired()])
+    skills = SelectField('Skills', validators=[DataRequired()])
     button = SubmitField('Next')
 
 
@@ -141,7 +156,8 @@ def sign_in():
 def profile(id):
     user = User.query.get_or_404(id)
     form = Step1()
-    return render_template('profile.html', user=user, logged=current_user, form=form)
+    form2 = Step2()
+    return render_template('profile.html', user=user, logged=current_user, form=form, form2=form2)
 
 
 # Logout route
