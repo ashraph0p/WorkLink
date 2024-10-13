@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'bootstrap5/form.html' import render_form %}
+{#{% from 'bootstrap5/form.html' import render_form %}#}
 {% block title %}Worklink{% endblock %}
 
 {% block content %}
@@ -9,18 +9,39 @@
             <div class="container my-5">
                 <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5">
                     <div class="d-flex my-5 justify-content-center align-content-center mb-5 pb-5">
-                        {{ render_form(form) }}
-{#                        <form action="" method="post" class="form" role="form">#}
-{#                            {{ form.hidden_tag() }}#}
-{#                            <div class="form-group mt-2 mb-4">{{ form.username.label }}#}
-{#                                {{ form.username }}</div>#}
-{#                            {{ form.account_type.label }}#}
-{#                            {{ form.account_type }}#}
-{#                            {{ form.button }}#}
-{#                        </form>#}
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+                            <div class="mb-3">
+                                <label>{{ form.account_type.label }}</label>
+
+                                <!-- Loop through each choice in the RadioField -->
+                                <div class="form-check">
+                                    {{ form.account_type(choices=[('freelancer', 'Freelancer')], class_='form-check-input') }}
+                                    <label class="form-check-label" for="account_type-0">Freelancer</label>
+                                    <small class="text-muted">(Services seller / Project implementer)</small>
+                                </div>
+
+                                <div class="form-check">
+                                    {{ form.account_type(choices=[('project_owner', 'Project Owner')], class_='form-check-input') }}
+                                    <label class="form-check-label" for="account_type-1">Project Owner</label>
+                                    <small class="text-muted">(Project owner / Services buyer)</small>
+                                </div>
+
+                                <div class="form-check">
+                                    {{ form.account_type(choices=[('company', 'Company')], class_='form-check-input') }}
+                                    <label class="form-check-label" for="account_type-2">Company</label>
+                                    <small class="text-muted">(Remote Hiring of Freelancers)</small>
+                                </div>
+                            </div>
+                            <div>
+                                {{ form.button(class="btn btn-primary") }}
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </article>
     </section>
+    {#    {{ ckeditor.load() }}#}
+    {#    {{ ckeditor.config(name='biography') }}#}
 {% endblock %}

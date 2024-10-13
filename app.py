@@ -4,8 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_required, current_user, logout_user, login_user
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
+from flask_ckeditor import CKEditor, CKEditorField
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField
+from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField, SelectField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 import os
@@ -18,10 +19,12 @@ class Base(DeclarativeBase):
 # Initialize Flask app and database
 db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
-login_manager = LoginManager()
-login_manager.init_app(app)
+
 
 # Configuration
+login_manager = LoginManager()
+login_manager.init_app(app)
+ckeditor = CKEditor(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 csrf = CSRFProtect(app)
@@ -68,10 +71,16 @@ class Step1(FlaskForm):
             ('company', 'Company (Remote Hiring of Freelancers)')
         ],
         validators=[DataRequired()])
-    button = SubmitField('Next Step')
+    button = SubmitField('Next')
 
 
 # Step 2 Onboarding Form
+class Step2(FlaskForm):
+    specifics = SelectField('Specialization')
+    job_title = StringField('Job Title', validators=[DataRequired()], render_kw={"placeholder": "Ex. Project Manager"})
+    biography = CKEditorField('Biography', validators=[DataRequired()])
+    skills = StringField('Skills', validators=[DataRequired()])
+    button = SubmitField('Next')
 # Step 3 Onboarding Form
 
 # Create tables if not already created
