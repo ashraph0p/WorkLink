@@ -9,6 +9,7 @@
 nav {
     background: linear-gradient(90deg, #404040 49.4%, #151515 100%);
 }
+
 .offcanvas {
     border-radius: 5% 0 0 5%;
     height: 60%;
@@ -17,14 +18,17 @@ nav {
     bottom: 0 !important;
     top: 39.8% !important;
 }
+
 /* Navbar above */
 .btn {
     box-shadow: 0 0 10px 0 #00000040 !important;
     border-radius: 20px !important;
 }
+
 .btn-primary, .btn-outline-primary {
     --bs-btn-hover-bg: #cc5816 !important;
 }
+
 .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #B44E14 !important;
@@ -63,15 +67,18 @@ nav {
     color: black !important;
     --bs-btn-hover-bg: #DCDCDC !important;
 }
+
 /* Main button customization */
 .footer {
     background: linear-gradient(90deg, #404040 56.5%, #151515 100%);
     color: white !important;
 }
+
 /* Footer Customization */
 h1, h2, h3, h4, h5, h6, a, p, button {
     font-family: "Poppins", sans-serif !important;
 }
+
 /* Main Customizations */
 #lady-worklink {
     position: absolute;
@@ -84,15 +91,21 @@ h1, h2, h3, h4, h5, h6, a, p, button {
 .check-list {
     list-style-image: url("home_page/checkmark.svg")
 }
+
 /* Home page Customization */
 body {
     background-color: #EAEAEA !important;
 }
+
 section article div {
     background-color: white;
     border-radius: 25%
 }
+
 article form input {
     width: 100%
 }
+
 /*Sign up Customization*/
+
+/* On boarding Customization*/

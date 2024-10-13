@@ -56,6 +56,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Enter your Password"})
     button = SubmitField('Log In')
 
+
 # Step 1 Onboarding Form
 class Step1(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith08"})
@@ -68,6 +69,8 @@ class Step1(FlaskForm):
         ],
         validators=[DataRequired()])
     button = SubmitField('Next Step')
+
+
 # Step 2 Onboarding Form
 # Step 3 Onboarding Form
 

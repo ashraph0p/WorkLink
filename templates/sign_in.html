@@ -13,6 +13,15 @@
                 <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5">
                     <div class="col-lg-5 p-3 p-lg-5 pt-lg-3">
                         <div class="d-flex row my-5 text-center">
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    <ul class=flashes>
+                                        {% for message in messages %}
+                                            <p style="color: red;">{{ message }}</p>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endwith %}
                             <div class="col">
                                 <button class="btn btn-danger rounded-1 px-4 py-3 w-100 fs-5 fw-bold">
                                     <i class="bi bi-google"></i> Sign In
