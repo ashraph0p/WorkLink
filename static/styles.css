@@ -107,5 +107,11 @@ article form input {
 }
 
 /*Sign up Customization*/
-.form-c
+.onboard-radio {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+/*.onboard-radio input {*/
+/*    text-align*/
+/*}*/
 /* On boarding Customization*/

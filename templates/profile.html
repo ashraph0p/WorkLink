@@ -7,36 +7,43 @@
         <h1 class="text-center">Hello, {{ user.name }}!</h1>
         <article class="form-signin w-75 m-auto mb-5">
             <div class="container my-5">
-                <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5">
-                    <div class="d-flex my-5 justify-content-center align-content-center mb-5 pb-5">
+                <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5 justify-content-center">
+                    <div class="d-flex my-5 justify-content-center align-content-center mb-5 pb-5 w-50">
                         <form method="POST">
                             {{ form.hidden_tag() }}
+                            <!-- Username Field -->
+                            <div class="mb-3">
+                                <label for="username">{{ form.username.label }}</label>
+                                {{ form.username(class="form-control shadow-sm") }}
+                                <small class="text-muted">
+                                    Must be unique and composed of alphanumeric characters only, with underscores (_)
+                                    allowed between them. It cannot be changed later.
+                                </small>
+                            </div>
+
+                            <!-- Account Type Radio Fields -->
                             <div class="mb-3">
                                 <label>{{ form.account_type.label }}</label>
 
-                                <!-- Loop through each choice in the RadioField -->
-                                <div class="form-check">
-                                    {{ form.account_type(choices=[('freelancer', 'Freelancer')], class_='form-check-input') }}
-                                    <label class="form-check-label" for="account_type-0">Freelancer</label>
-                                    <small class="text-muted">(Services seller / Project implementer)</small>
-                                </div>
-
-                                <div class="form-check">
-                                    {{ form.account_type(choices=[('project_owner', 'Project Owner')], class_='form-check-input') }}
-                                    <label class="form-check-label" for="account_type-1">Project Owner</label>
-                                    <small class="text-muted">(Project owner / Services buyer)</small>
-                                </div>
-
-                                <div class="form-check">
-                                    {{ form.account_type(choices=[('company', 'Company')], class_='form-check-input') }}
-                                    <label class="form-check-label" for="account_type-2">Company</label>
-                                    <small class="text-muted">(Remote Hiring of Freelancers)</small>
-                                </div>
+                                <!-- Loop through radio choices -->
+                                {% for subfield in form.account_type %}
+                                    <div class="form-check mb-2 onboard-radio p-3 rounded shadow-sm">
+                                        {{ subfield(class="form-check-input mx-1 ") }}
+                                        <label class="form-check-label" for="{{ subfield.id }}">
+                                            {{ subfield.label.text.split(' (')[0] }}
+                                        </label>
+                                        <br>
+                                        <small class="text-muted mx-4">({{ subfield.label.text.split(' (')[1].strip(')') }})</small>
+                                    </div>
+                                {% endfor %}
                             </div>
-                            <div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center mt-4">
                                 {{ form.button(class="btn btn-primary") }}
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

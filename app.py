@@ -20,7 +20,6 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
 
-
 # Configuration
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -63,14 +62,11 @@ class LoginForm(FlaskForm):
 # Step 1 Onboarding Form
 class Step1(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith08"})
-    account_type = RadioField(
-        'Account type',
-        choices=[
-            ('freelancer', 'Freelancer (Services seller / Project implementer)'),
-            ('project_owner', 'Project owner (Project owner / Services buyer)'),
-            ('company', 'Company (Remote Hiring of Freelancers)')
-        ],
-        validators=[DataRequired()])
+    account_type = RadioField('Account type', choices=[
+        ('freelancer', 'Freelancer (Services Seller / Project Implementer)'),
+        ('project_owner', 'Project Owner (Services Buyer)'),
+        ('company', 'Company (Remote Hiring of Freelancers)')],
+                              validators=[DataRequired()])
     button = SubmitField('Next')
 
 
@@ -81,6 +77,8 @@ class Step2(FlaskForm):
     biography = CKEditorField('Biography', validators=[DataRequired()])
     skills = StringField('Skills', validators=[DataRequired()])
     button = SubmitField('Next')
+
+
 # Step 3 Onboarding Form
 
 # Create tables if not already created
