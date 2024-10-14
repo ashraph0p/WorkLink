@@ -49,13 +49,15 @@ class Details(db.Model):
     username: Mapped[str] = mapped_column(nullable=False)
     account_type: Mapped[int] = mapped_column(nullable=False)
 
+
 # User registration form
 class Makeaccount(FlaskForm):
     name = StringField('Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. John"})
     family_name = StringField('Family Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. Smith"})
     email = EmailField('Email', validators=[DataRequired()], render_kw={"placeholder": "Ex. johnsmith1998@gmail.com"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Enter your Password"})
-    confirm = BooleanField('I have read and agree to terms of use and Privacy Statement.', validators=[DataRequired()])
+    confirm = BooleanField('I have read and agree to Terms of Service and Privacy Statement.',
+                           validators=[DataRequired()])
 
 
 # User login form
@@ -88,13 +90,34 @@ class Step2(FlaskForm):
         ('graphic_design', 'Graphic Design'),
         ('logo_design', 'Logo Design')
     ])
-    job_title = SelectField('Job Title', validators=[DataRequired()], render_kw={"placeholder": "Ex. Project Manager"})
+    job_title = SelectField('Job Title', validators=[DataRequired()], choices=[('mobile_app', 'Mobile app'),
+                                                                               ('web_site', 'Web site'),
+                                                                               ('content_management_systems',
+                                                                                'Content management systems'),
+                                                                               ('other', 'Other')])
     biography = CKEditorField('Biography', validators=[DataRequired()])
-    skills = SelectField('Skills', validators=[DataRequired()])
+    skills = SelectField('Skills', validators=[DataRequired()], choices=[
+        ('translate', 'Translate'),
+        ('web_design', 'Web design'),
+        ('web_development', 'Web development'),
+        ('illustrator', 'Illustrator'),
+        ('article_writing', 'Article Writing'),
+        ('graphic_design', 'Graphic Design'),
+        ('logo_design', 'Logo Design')
+    ])
     button = SubmitField('Next')
 
 
 # Step 3 Onboarding Form
+class Step3(FlaskForm):
+    referral = RadioField('How do you know Worklink?', choices=[
+        ('1', 'Search engine'),
+        ('2', 'Social media'),
+        ('3', 'Article on the internet'),
+        ('4', 'Other')],
+                              validators=[DataRequired()])
+    button = SubmitField('Next')
+
 
 # Create tables if not already created
 with app.app_context():
@@ -151,13 +174,22 @@ def sign_in():
 
 
 # User profile route
-@app.route('/profile/<int:id>', methods=['GET'])
+@app.route('/profile/<int:id>', methods=['GET', 'POST'])
 @login_required
 def profile(id):
     user = User.query.get_or_404(id)
     form = Step1()
     form2 = Step2()
-    return render_template('profile.html', user=user, logged=current_user, form=form, form2=form2)
+    form3 = Step3()
+    if form.validate_on_submit():
+        return render_template('profile.html', user=user, logged=current_user, form=form2, img='step2.svg')
+    elif form2.validate_on_submit():
+        return render_template('profile.html', user=user, logged=current_user, form=form3, img="step3.svg")
+    elif form3.validate_on_submit():
+        # Temporary will fix later
+        return render_template('profile.html', user=user, logged=current_user, img="finish.svg", form=form)
+
+    return render_template('profile.html', user=user, logged=current_user, form=form, img='step1.svg')
 
 
 # Logout route
