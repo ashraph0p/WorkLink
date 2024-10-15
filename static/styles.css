@@ -107,7 +107,10 @@ section article div {
 article form input {
     width: 100%
 }
-
+.btn-home {
+    left: 41.7% !important;
+    top: 75.8% !important;
+}
 /*Sign up Customization*/
 .onboard-radio {
     border: 1px solid black;

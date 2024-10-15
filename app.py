@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_required, current_user, logout_user, login_user
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor
-from forms import Makeaccount, LoginForm, Step1, Step2, Step3
-from databases import Base, User, Details
+from forms import Makeaccount, LoginForm, Step1, Step2, Step3, Start
+from databases import Base, User
 
 import os
 
@@ -37,7 +37,8 @@ def load_user(user_id):
 # Home route
 @app.route('/')
 def home():  # put application's code here
-    return render_template('index.html', logged=current_user)
+    form = Start()
+    return render_template('index.html', logged=current_user, form=form)
 
 
 # Creating an account route

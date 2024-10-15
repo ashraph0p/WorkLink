@@ -4,7 +4,13 @@ from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioF
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email
 
+
 # User registration form
+class Start(FlaskForm):
+    project = StringField( render_kw={'placeholder': "Enter The Title Of Project You Want To Emplement ."})
+    start = SubmitField('Start Now')
+
+
 class Makeaccount(FlaskForm):
     name = StringField('Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. John"})
     family_name = StringField('Family Name', validators=[DataRequired()], render_kw={"placeholder": "Ex. Smith"})
@@ -71,4 +77,3 @@ class Step3(FlaskForm):
         ('4', 'Other')],
                           validators=[DataRequired()])
     button = SubmitField('Next')
-
