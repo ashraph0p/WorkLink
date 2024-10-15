@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Email
 
 # User registration form
 class Start(FlaskForm):
-    project = StringField( render_kw={'placeholder': "Enter The Title Of Project You Want To Emplement ."})
+    project = StringField( render_kw={'placeholder': "Enter The Title Of Project You Want To Implement."})
     start = SubmitField('Start Now')
 
 

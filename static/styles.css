@@ -107,15 +107,29 @@ section article div {
 article form input {
     width: 100%
 }
-.btn-home {
-    left: 41.7% !important;
-    top: 75.8% !important;
+
+.form-home {
+    height: 64px !important;
+    border-radius: 10px !important;
+    border: 1px solid #151515 !important;
+    background: #FFF !important;
 }
+
+.btn-home {
+    z-index: 1 !important;
+    width: 126px !important;
+    height: 48px !important;
+    flex-shrink: 0; !important;
+    margin-left: -9rem;
+    border-radius: 10px !important;
+}
+
 /*Sign up Customization*/
 .onboard-radio {
     border: 1px solid black;
     border-radius: 5px;
 }
+
 /*.onboard-radio input {*/
 /*    text-align*/
 /*}*/
