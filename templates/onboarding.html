@@ -11,7 +11,7 @@
         <article class="form-signin w-75 m-auto mb-5">
             <div class="container my-5">
                 <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg my-5 justify-content-center">
-                    <div class="d-flex my-5 justify-content-center align-content-center mb-5 pb-5 w-50">
+                    <div class="d-flex my-5 justify-content-center align-content-center mb-5 pb-5 w-75 m-auto">
                         {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 <ul class=flashes>
@@ -21,42 +21,17 @@
                                 </ul>
                             {% endif %}
                         {% endwith %}
+                        {% if current_user.onboarding == False %}
+                            {{ render_form(form) }}
+                        {% elif current_user.onboarding %}
+                            <div class="col text-center"> <!-- Center-align content -->
+                                <img src="/static/onboarding/img.webp" alt="Onboarding Complete!"
+                                     class="img-fluid w-50 mx-auto d-block"> <!-- Center the image -->
+                                <p>Your Account has been successfully activated.</p>
+                                <a class="btn btn-primary w-75">Add your project</a>
+                            </div>
 
-{#                        <form method="POST">#}
-{#                            {{ form.hidden_tag() }}#}
-{#                            <!-- Username Field -->#}
-{#                            <div class="mb-3">#}
-{#                                <label for="username">{{ form.username.label }}</label>#}
-{#                                {{ form.username(class="form-control shadow-sm") }}#}
-{#                                <small class="text-muted">#}
-{#                                    Must be unique and composed of alphanumeric characters only, with underscores (_)#}
-{#                                    allowed between them. It cannot be changed later.#}
-{#                                </small>#}
-{#                            </div>#}
-{##}
-{#                            <!-- Account Type Radio Fields -->#}
-{#                            <div class="mb-3">#}
-{#                                <label>{{ form.account_type.label }}</label>#}
-{##}
-{#                                <!-- Loop through radio choices -->#}
-{#                                {% for subfield in form.account_type %}#}
-{#                                    <div class="form-check mb-2 onboard-radio p-2 my-2 rounded shadow-sm">#}
-{#                                        {{ subfield(class="form-check-input mx-1") }}#}
-{#                                        <label class="form-check-label" for="{{ subfield.id }}">#}
-{#                                            {{ subfield.label.text.split(' (')[0] }}#}
-{#                                        </label>#}
-{#                                        <br>#}
-{#                                        <small class="text-muted mx-4">({{ subfield.label.text.split(' (')[1].strip(')') }})</small>#}
-{#                                    </div>#}
-{#                                {% endfor %}#}
-{#                            </div>#}
-{##}
-{#                            <!-- Submit Button -->#}
-{#                            <div class="text-center mt-4">#}
-{#                                {{ form.button(class="btn btn-primary") }}#}
-{#                            </div>#}
-{#                        </form>#}
-                    {{ render_form(form) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

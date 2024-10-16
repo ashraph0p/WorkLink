@@ -1,13 +1,19 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_required, current_user, logout_user, login_user
+from flask_login import LoginManager, login_required, current_user, logout_user, login_user, UserMixin
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor
 from forms import Makeaccount, LoginForm, Step1, Step2, Step3, Start
-from databases import Base, User
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 import os
+
+
+class Base(DeclarativeBase):
+    pass
+
 
 # Initialize Flask app and database
 db = SQLAlchemy(model_class=Base)
@@ -22,6 +28,35 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
 db.init_app(app)
+
+
+# User model with flask-login support
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+    family_name: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str] = mapped_column(unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(unique=True, nullable=False)
+    confirm: Mapped[bool] = mapped_column(nullable=False)
+    onboarding: Mapped[bool] = mapped_column(nullable=True)
+    details = relationship('Details', back_populates='user', uselist=False)
+
+
+# Onboarding options model
+class Details(db.Model):
+    __tablename__ = 'details'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(nullable=True)
+    account_type: Mapped[int] = mapped_column(nullable=True)
+    specialization: Mapped[str] = mapped_column(nullable=True)
+    job_title: Mapped[str] = mapped_column(nullable=True)
+    biography: Mapped[str] = mapped_column(nullable=True)
+    skills: Mapped[str] = mapped_column(nullable=True)
+    referral: Mapped[int] = mapped_column(nullable=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=True)
+    user = relationship('User', back_populates='details')
+
 
 # Create tables if not already created
 with app.app_context():
@@ -58,6 +93,7 @@ def join():
             new_user.email = request.form['email']
             new_user.password = request.form['password']
             new_user.confirm = confirm_bool
+            new_user.onboarding = False
             db.session.add(new_user)
             db.session.commit()
         return redirect(url_for("onboarding", id=new_user.id))
@@ -86,12 +122,25 @@ def onboarding(id):
     form = Step1()
     form2 = Step2()
     form3 = Step3()
+    if current_user.onboarding:
+        return redirect(url_for("profile", id=current_user.id))
     if form.validate_on_submit():
         return render_template('onboarding.html', user=user, logged=current_user, form=form2, img='step2.svg')
     elif form2.validate_on_submit():
         return render_template('onboarding.html', user=user, logged=current_user, form=form3, img="step3.svg")
     elif form3.validate_on_submit():
-        # Temporary will fix later
+        new_details = Details()
+        new_details.username = form.username.data
+        new_details.account_type = form.account_type.data
+        new_details.specialization = form2.specifics.data
+        new_details.job_title = form2.job_title.data
+        new_details.biography = form2.biography.data
+        new_details.skills = form2.skills.data
+        new_details.referral = form3.referral.data
+        new_details.user_id = current_user.id
+        current_user.onboarding = True
+        db.session.add(new_details)
+        db.session.commit()
         return render_template('onboarding.html', user=user, logged=current_user, img="finish.svg", form=form)
 
     return render_template('onboarding.html', user=user, logged=current_user, form=form, img='step1.svg')

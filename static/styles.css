@@ -119,7 +119,8 @@ article form input {
     z-index: 1 !important;
     width: 126px !important;
     height: 48px !important;
-    flex-shrink: 0; !important;
+    flex-shrink: 0;
+!important;
     margin-left: -9rem;
     border-radius: 10px !important;
 }
