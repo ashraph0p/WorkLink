@@ -3,4 +3,72 @@
 {% block title %}Worklink{% endblock %}
 
 {% block content %}
+    <div class="container-fluid my-5">
+        <h1 class="h1 text-center">Control Panel</h1>
+        <div class="d-flex row my-5">
+            <section class="col ">
+                <article class="mx-auto card mb-4 rounded-3 shadow-sm w-75">
+                    <div class="card-header py-3">
+                            <span>
+                            <img src="/static/control_panel/person.svg" alt="">
+                            </span>
+                        <h4 class="my-0 fw-normal d-inline mt-4 h4">My Account</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <img src="/static/control_panel/pfp_placeholder.svg" alt="">
+                        <h4 class="card-title pricing-card-title">Samy Mohamed</h4>
+
+                        <p class="text-danger-emphasis">Programming, website and application development</p>
+                    </div>
+                </article>
+                <article class="card mb-4 rounded-3 shadow-sm w-75 mx-auto">
+
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Steps to complete the account</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Add your first project</li>
+                            <li>Confirm mobile number</li>
+                        </ul>
+                    </div>
+
+                </article>
+                <article class="card mb-4 rounded-3 shadow-sm w-75 mx-auto">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Work link for Companies</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>A solution tailored for companies and organizations that helps them grow their business
+                            and simplify the process of hiring freelancers through a system that allows managers to
+                            add company members, team members, or anyone else to assist in the hiring process and
+                            communicate with freelancers according to specific permissions.</p>
+                    </div>
+                </article>
+            </section>
+            <section class="col ">
+                <article class="card mb-4 rounded-3 shadow-sm mx-auto w-75">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">My balance</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row d-flex justify-content-around">
+                            <div class="col text-center">
+                                <h1>$ 0.00</h1>
+                                <p>Total Balance</p>
+                            </div>
+                            <div class="d-inline-flex w-25 text-center justify-content-center" style="height: 50px;">
+                                <div class="vr"></div>
+                            </div>
+                            <div class="col text-center">
+                                <h1>$ 0.00</h1>
+                                <p>Available Balance</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
 {% endblock %}
