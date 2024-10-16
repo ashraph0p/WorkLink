@@ -3,16 +3,16 @@
 {% block title %}Worklink{% endblock %}
 
 {% block content %}
-    <div class="container-fluid my-5">
+    <div class="container my-5">
         <h1 class="h1 text-center">Control Panel</h1>
         <div class="d-flex row my-5">
-            <section class="col ">
-                <article class="mx-auto card mb-4 rounded-3 shadow-sm w-75">
+            <section class="col-4 p-0">
+                <article class="mx-auto card mb-4 rounded-3 shadow-sm w-100">
                     <div class="card-header py-3">
                             <span>
                             <img src="/static/control_panel/person.svg" alt="">
                             </span>
-                        <h4 class="my-0 fw-normal d-inline mt-4 h4">My Account</h4>
+                        <h6 class="my-0 fw-normal d-inline mt-4 h6">My Account</h6>
                     </div>
                     <div class="card-body text-center">
                         <img src="/static/control_panel/pfp_placeholder.svg" alt="">
@@ -21,10 +21,10 @@
                         <p class="text-danger-emphasis">Programming, website and application development</p>
                     </div>
                 </article>
-                <article class="card mb-4 rounded-3 shadow-sm w-75 mx-auto">
+                <article class="card mb-4 rounded-3 shadow-sm w-100 mx-auto">
 
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Steps to complete the account</h4>
+                        <h6 class="my-0 fw-normal h6 text-body-emphasis">Steps to complete the account</h6>
                     </div>
                     <div class="card-body">
 
@@ -35,27 +35,29 @@
                     </div>
 
                 </article>
-                <article class="card mb-4 rounded-3 shadow-sm w-75 mx-auto">
+                <article class="card mb-4 rounded-3 shadow-sm w-100 mx-auto">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Work link for Companies</h4>
+                        <h6 class="my-0 fw-normal text-body-emphasis h6">Work link for Companies</h6>
                     </div>
                     <div class="card-body">
-                        <p>A solution tailored for companies and organizations that helps them grow their business
+                        <p class="fs-6 lead text-body">A solution tailored for companies and organizations that helps
+                            them grow their business
                             and simplify the process of hiring freelancers through a system that allows managers to
                             add company members, team members, or anyone else to assist in the hiring process and
                             communicate with freelancers according to specific permissions.</p>
                     </div>
+                    <a href="" class="btn btn-primary rounded text-center w-50 my-3 mx-auto">Know More</a>
                 </article>
             </section>
-            <section class="col ">
-                <article class="card mb-4 rounded-3 shadow-sm mx-auto w-75">
+            <section class="col-8">
+                <article class="card mb-4 rounded-3 shadow-sm mx-auto w-100">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">My balance</h4>
+                        <h6 class="my-0 fw-normal h6">My balance</h6>
                     </div>
                     <div class="card-body ">
                         <div class="row d-flex justify-content-around">
                             <div class="col text-center">
-                                <h1>$ 0.00</h1>
+                                <h1 class="text-success">$ 0.00</h1>
                                 <p>Total Balance</p>
                             </div>
                             <div class="d-inline-flex w-25 text-center justify-content-center" style="height: 50px;">
@@ -68,6 +70,46 @@
                         </div>
                     </div>
                 </article>
+                <article class="card mb-4 rounded-3 shadow-sm mx-auto w-100 py-3">
+                    <div class="d-flex justify-content-center">
+                        <p class="mx-auto my-auto">Withdrawable balance $0.00 </p>
+                        <div class="vr"></div>
+                        <p class="mx-auto my-auto">Pending balance $0.00</p>
+                    </div>
+                </article>
+                <article class="card mb-4 rounded-3 shadow-sm mx-auto w-100 py-3">
+                    <div class="card-header py-3 d-flex">
+                        <h5 class="my-0 fw-normal h5 text-body-emphasis">My Projects <span
+                                class="text-danger">(0)</span></h5>
+                        <a href="" class="btn btn-primary rounded border-0 align-self-end ms-auto my-auto">Add Project</a>
+                    </div>
+                    <div class="card-body ">
+                        <div class="d-flex row">
+                            <div class="col">
+                                <ul>
+                                    <li>Draft</li>
+                                    <li>Opened</li>
+                                    <li>Completed</li>
+                                    <li>Cancelled</li>
+                                </ul>
+
+                            </div>
+                            <div class="col">
+                                <ul>
+                                    <li>Under Review</li>
+                                    <li>In Progress</li>
+                                    <li>Closed</li>
+                                    <li>Rejected</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+                <div>
+                    <article></article>
+                    <article></article>
+                </div>
             </section>
         </div>
     </div>
