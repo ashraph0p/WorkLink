@@ -24,7 +24,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 ckeditor = CKEditor(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URI', 'sqlite:///project.db')
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
 db.init_app(app)
