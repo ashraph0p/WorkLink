@@ -96,6 +96,7 @@ def join():
             new_user.onboarding = False
             db.session.add(new_user)
             db.session.commit()
+            login_user(new_user)
         return redirect(url_for("onboarding", id=new_user.id))
     return render_template('join.html', form=form, logged=current_user)
 
