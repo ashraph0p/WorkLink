@@ -28,7 +28,7 @@ nav {
     color: #959595 !important;
     border: none !important;
     border-bottom: #959595 1px solid !important;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 #search-nav::placeholder {
