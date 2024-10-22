@@ -28,7 +28,7 @@
         <div class="container">
             {% if not logged.is_authenticated %}
                 <a class="navbar-brand d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="/"><img
-                        src="/static/base/logo.svg" alt=""></a>
+                        src="/static/base/logo_2.svg" alt=""></a>
             {% elif logged.is_authenticated %}
                 <div class=" d-flex align-items-center mb-3 mb-md-0 me-md-auto ">
                     <div class="dropdown">
@@ -72,9 +72,9 @@
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="offcanvas offcanvas-end w-25" tabindex="-1" id="offcanvasNavbarDark"
-                 aria-labelledby="offcanvasNavbarDarkLabel">
-                <div class="offcanvas-body">
+            <div class="offcanvas offcanvas-end w-25 mb-auto" tabindex="-1" id="offcanvasNavbarDark"
+                 aria-labelledby="offcanvasNavbarDarkLabel" style="margin-top: 5.5%">
+                <div class="offcanvas-body p-auto">
                     <form class="d-flex mt-3" role="search">
                         <input class="form-control me-2" id="search-nav" type="search" placeholder="Search about..." aria-label="Search">
                     </form>
@@ -149,6 +149,9 @@
             </div>
         </div>
     </nav>
+    {% if request.endpoint == 'home' %}
+        {% include 'navbar_index.html' %}
+    {% endif %}
 </header>
 <!-- Your page content -->
 <main>{% block content %}{% endblock %}</main>
@@ -156,7 +159,6 @@
 <div class="footer">
     <div class="container pt-3">
         <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5 mt-5 pb-2">
-
             <div class="col mb-3 ">
                 <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                     <img src="/static/base/logo.svg" alt="" class="img-fluid w-100">
