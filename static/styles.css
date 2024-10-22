@@ -15,8 +15,24 @@ nav {
     height: 60%;
     background: #595959 !important;
     border: 1px solid #FFFFFF !important;
-    bottom: 0 !important;
-    top: 39.8% !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-bg: none !important;
+    --bs-dropdown-border-color: none !important;
+    --bs-dropdown-link-color: white !important;
+}
+
+#search-nav {
+    background: none !important;
+    color: #959595 !important;
+    border: none !important;
+    border-bottom: #959595 1px solid !important;
+    border-radius: 0px;
+}
+
+#search-nav::placeholder {
+    color: #959595 !important;
 }
 
 /* Navbar above */
