@@ -94,12 +94,14 @@ nav {
 h1, h2, h3, h4, h5, h6, a, p, button, li {
     font-family: "Poppins", sans-serif !important;
 }
-
+.w-125 {
+    width: 14rem !important;
+}
 /* Main Customizations */
 #lady-worklink {
     position: absolute;
-    top: 30px;
-    width: 50% !important;
+    top: 3rem;
+    width: 90% !important;
     right: 0;
     z-index: -1;
 }

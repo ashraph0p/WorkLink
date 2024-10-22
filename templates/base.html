@@ -55,6 +55,8 @@
                 </div>
             {% endif %}
             <ul class="nav nav-pills me-3">
+                <li class="nav-item"><a href="#" class="nav-link" aria-current="page"><i class="bi bi-globe me-1"></i>العربية
+                </a></li>
                 <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Freelancers</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Projects</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
@@ -76,7 +78,8 @@
                  aria-labelledby="offcanvasNavbarDarkLabel" style="margin-top: 5.5%">
                 <div class="offcanvas-body p-auto">
                     <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" id="search-nav" type="search" placeholder="Search about..." aria-label="Search">
+                        <input class="form-control me-2" id="search-nav" type="search" placeholder="Search about..."
+                               aria-label="Search">
                     </form>
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         {% if not logged.is_authenticated %}
@@ -127,7 +130,7 @@
                                 </li>
 
                             </ul>
-                            <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 Work link
@@ -158,9 +161,9 @@
 <!-- End of Page Content -->
 <div class="footer">
     <div class="container pt-3">
-        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 pt-5 mt-5 pb-2">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 mt-5 pb-1 justify-content-between">
             <div class="col mb-3 ">
-                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
                     <img src="/static/base/logo.svg" alt="" class="img-fluid w-100">
                 </a>
                 <p class="py-0 mb-1 mb-3 ">Follow us</p>
@@ -169,10 +172,6 @@
                 <i class="bi bi-facebook fs-3 me-4 pe-1"></i>
                 <p class="py-0 mb-1 mt-2 mb-3">Payment Methods</p>
                 <img src="/static/base/footer_payments.svg" alt="">
-            </div>
-
-            <div class="col mb-3">
-
             </div>
 
             <div class="col mb-3">

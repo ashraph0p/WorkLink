@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}Worklink{% endblock %}
+
 {% block content %}
+    <style>
+        body {
+        background-color: #fff !important;
+        }
+    </style>
+
     <!--First Hero-->
-    <section class="mb-5 py-5 mb-5">
-        <div class="container-fluid col-xxl-8 p-5">
+    <section class="mb-5 py-5 my-5">
+        <div class="container-fluid col-xxl-8 p-5 my-5">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5 mt-5">
-                <div class="col-10 col-sm-8 col-lg-6">
+                <div class="col-6">
                     <img src="/static/home_page/lady.png" class="d-block mx-lg-auto img-fluid"
                          alt="A freelancer holding a pen."
-                         width="1954" height="1921" loading="lazy" id="lady-worklink">
+                         loading="lazy" id="lady-worklink">
                 </div>
-                <div class="col-lg-6">
-                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Get in Touch and Start
+                <div class="col-6">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-base mb-3 ">Get in Touch and Start
                         Your Project Today ,,</h1>
-                    <p class="lead">All your business needs and freelance
+                    <p class="lh-lg fs-4 fw-normal text-body-emphasis mb-5">All your business needs and freelance
                         will be here .</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-5">
                         {{ form.project(class="form-control w-100 form-home shadow") }}
                         {{ form.start(class="btn btn-primary btn-lg btn-home text-center mt-2") }}
                     </div>
