@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
-from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField, SelectField
+from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField, SelectField, FileField, DateField, \
+    URLField
 from wtforms.fields.simple import SubmitField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired, Email, URL, Optional
+from flask_wtf.file import FileAllowed, FileRequired
 
 
 # User registration form
@@ -68,8 +70,8 @@ class Step2(FlaskForm):
     button = SubmitField('Next')
 
 
-# Step 3 Onboarding Form
-class Step3(FlaskForm):
+# Step 3 Onboarding Form (Project Owner)
+class Step3ProjectOwner(FlaskForm):
     referral = RadioField('How do you know Worklink?', choices=[
         ('1', 'Search engine'),
         ('2', 'Social media'),
@@ -77,3 +79,18 @@ class Step3(FlaskForm):
         ('4', 'Other')],
                           validators=[DataRequired()])
     button = SubmitField('Next')
+
+
+# Step 3 Onboarding Forms (Freelancers)
+class Step3Freelance(FlaskForm):
+    title = StringField('Work Title', validators=[DataRequired()])
+    thumbnail = FileField('Thumbnail', validators=[
+        FileAllowed(['jpg', 'jpeg', 'png', 'gif'], 'Images only!')
+    ])
+    uploaded_file = FileField('Upload Work File', validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'jpeg', 'png', 'pdf'], 'Only image or PDF files are allowed!')
+    ])
+    completion_date = DateField('Completion Date', format='%Y-%m-%d', validators=[Optional()])
+    link = URLField('Work Link', validators=[Optional(), URL()])
+    submit = SubmitField('Save Work')

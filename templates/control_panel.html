@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body text-center">
                         <img src="/static/control_panel/pfp_placeholder.svg" alt="">
-                        <h4 class="card-title pricing-card-title">Samy Mohamed</h4>
+                        <h4 class="card-title pricing-card-title">{{ current_user.name }} {{ current_user.family_name }}</h4>
 
                         <p class="text-danger-emphasis">Programming, website and application development</p>
                     </div>
@@ -81,7 +81,8 @@
                     <div class="card-header py-3 d-flex">
                         <h5 class="my-0 fw-normal h5 text-body-emphasis">My Projects <span
                                 class="text-danger">(0)</span></h5>
-                        <a href="" class="btn btn-primary rounded border-0 align-self-end ms-auto my-auto">Add Project</a>
+                        <a href="" class="btn btn-primary rounded border-0 align-self-end ms-auto my-auto">Add
+                            Project</a>
                     </div>
                     <div class="card-body ">
                         <div class="d-flex row">
@@ -106,9 +107,48 @@
 
                     </div>
                 </article>
-                <div>
-                    <article></article>
-                    <article></article>
+                <div class="d-flex justify-content-evenly row">
+                    <article class="card col mb-4 rounded-3 shadow-sm w-50 mx-4 px-0 ">
+                        <div class="card-header py-3 d-flex">
+                            <h5 class="my-auto fw-normal h5 text-body-emphasis">My services <span
+                                    class="text-danger">(0)</span></h5>
+
+                            <a href=""
+                               class="btn btn-sm btn-primary rounded border-0 align-self-end ms-auto fs-6">Add
+                                <i class="bi bi-plus"></i></a>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col">
+                                    <ul>
+                                        <li>Draft</li>
+                                        <li>Opened</li>
+                                        <li>Completed</li>
+                                        <li>Cancelled</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card col mb-4 rounded-3 shadow-sm w-50 mx-4 px-0 ">
+                        <div class="card-header py-3 d-flex">
+                            <h5 class="my-auto fw-normal h5 text-body-emphasis">My purchase <span
+                                    class="text-danger">(0)</span></h5>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex row">
+                                <div class="col">
+                                    <ul>
+                                        <li>Draft</li>
+                                        <li>Opened</li>
+                                        <li>Completed</li>
+                                        <li>Cancelled</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </section>
         </div>

@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_required, current_user, logout_user, login_user, UserMixin
 from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor
-from forms import Makeaccount, LoginForm, Step1, Step2, Step3, Start
+from forms import Makeaccount, LoginForm, Step1, Step2, Step3ProjectOwner, Step3Freelance, Start
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -96,8 +96,7 @@ def join():
             new_user.onboarding = False
             db.session.add(new_user)
             db.session.commit()
-            login_user(new_user)
-        return redirect(url_for("onboarding", id=new_user.id))
+        return redirect(url_for("onboarding", id=current_user.id))
     return render_template('join.html', form=form, logged=current_user)
 
 
@@ -120,39 +119,103 @@ def sign_in():
 @login_required
 def onboarding(id):
     user = User.query.get_or_404(id)
-    form = Step1()
-    form2 = Step2()
-    form3 = Step3()
+
+    # Initialize the form objects
+    form = Step1()  # Step 1 form (Account Type and Username)
+    form2 = Step2()  # Step 2 form (Profile Details)
+    form3_project_owner = Step3ProjectOwner()  # Step 3 for Project Owners
+    form3_freelancer = Step3Freelance()  # Step 3 for Freelancers
+
+    new_details = Details()
+    # finalize details addition
+    def finish():
+        new_details.username = session.get('username')
+        new_details.account_type = session.get('account_type')
+        new_details.specialization = session.get('specialization')
+        new_details.job_title = session.get('job_title')
+        new_details.biography = session.get('biography')
+        new_details.skills = session.get('skills')
+        return finalize_onboarding(new_details)
+    # Check if onboarding is already completed
     if current_user.onboarding:
-        return redirect(url_for("profile", id=current_user.id))
-    if form.validate_on_submit():
+        return redirect(url_for("control_panel", id=current_user.id))
+
+    # Initialize session to track onboarding progress
+    if 'step' not in session:
+        session['step'] = 1  # Start with Step 1
+
+    # Step 1: Choose Account Type & Set Username
+    if session['step'] == 1:
+        if form.validate_on_submit():
+            # Store data from step 1 in session
+            session['username'] = form.username.data
+            session['account_type'] = form.account_type.data
+            session['step'] = 2  # Move to step 2
+            return redirect(url_for('onboarding', id=user.id))  # Redirect to keep it smooth
+        return render_template('onboarding.html', user=user, logged=current_user, form=form, img='step1.svg')
+
+    # Step 2: Add Profile Details
+    elif session['step'] == 2:
+        if form2.validate_on_submit():
+            # Store form2 data in session
+            session['specialization'] = form2.specifics.data
+            session['job_title'] = form2.job_title.data
+            session['biography'] = form2.biography.data
+            session['skills'] = form2.skills.data
+
+            # Retrieve account type to move to the correct next step
+            if session.get('account_type') == '2':  # Project Owner
+                session['step'] = 3  # Move to step 3 (Project Owner)
+            elif session.get('account_type') == '1':  # Freelancer
+                session['step'] = 4  # Move to step 3 (Freelancer)
+            return redirect(url_for('onboarding', id=user.id))
         return render_template('onboarding.html', user=user, logged=current_user, form=form2, img='step2.svg')
-    elif form2.validate_on_submit():
-        return render_template('onboarding.html', user=user, logged=current_user, form=form3, img="step3.svg")
-    elif form3.validate_on_submit():
-        new_details = Details()
-        new_details.username = form.username.data
-        new_details.account_type = form.account_type.data
-        new_details.specialization = form2.specifics.data
-        new_details.job_title = form2.job_title.data
-        new_details.biography = form2.biography.data
-        new_details.skills = form2.skills.data
-        new_details.referral = form3.referral.data
-        new_details.user_id = current_user.id
-        current_user.onboarding = True
-        db.session.add(new_details)
-        db.session.commit()
-        return render_template('onboarding.html', user=user, logged=current_user, img="finish.svg", form=form)
 
-    return render_template('onboarding.html', user=user, logged=current_user, form=form, img='step1.svg')
+    # Step 3: Project Owner
+    elif session['step'] == 3:
+        if form3_project_owner.validate_on_submit():
+            new_details.referral = form3_project_owner.referral.data
+            # Handle submission and complete onboarding for project owner
+            finish()
+            return redirect(url_for("control_panel", id=current_user.id))
+        return render_template('onboarding.html', user=user, logged=current_user, form=form3_project_owner,
+                               img='step3_project_owner.svg')
 
+    # Step 3: Freelancer
+    elif session['step'] == 4:
+        if form3_freelancer.validate_on_submit():
+            # Handle submission and complete onboarding for freelancer
+
+            finish()
+            return redirect(url_for("control_panel", id=current_user.id))
+        return render_template('onboarding.html', user=user, logged=current_user, form=form3_freelancer,
+                               img='step3_project_owner.svg')
+
+    # Default case if session tracking fails
+    return redirect(url_for('onboarding', id=user.id))
+
+
+# Helper function to finalize onboarding
+def finalize_onboarding(details):
+    details.user_id = current_user.id
+    current_user.onboarding = True
+    db.session.add(details)
+    db.session.commit()
+    # Clear onboarding session data
+    session.pop('step', None)
+    session.pop('username', None)
+    session.pop('account_type', None)
+    session.pop('specialization', None)
+    session.pop('job_title', None)
+    session.pop('biography', None)
+    session.pop('skills', None)
 
 # User control panel route
 @app.route('/profile/<int:id>', methods=['GET', 'POST'])
 @login_required
-def profile(id):
+def control_panel(id):
     user = User.query.get_or_404(id)
-    return render_template('profile.html', user=user, logged=current_user)
+    return render_template('control_panel.html', user=user, logged=current_user)
 
 
 # Logout route

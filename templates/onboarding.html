@@ -24,11 +24,11 @@
                         {% if current_user.onboarding == False %}
                             {{ render_form(form) }}
                         {% elif current_user.onboarding %}
-                            <div class="col text-center"> <!-- Center-align content -->
+                            <div class="col text-center">
                                 <img src="/static/onboarding/img.webp" alt="Onboarding Complete!"
-                                     class="img-fluid w-50 mx-auto d-block"> <!-- Center the image -->
-                                <p>Your Account has been successfully activated.</p>
-                                <a class="btn btn-primary w-75">Add your project</a>
+                                     class="img-fluid w-50 mx-auto d-block">
+                                <p class="my-5">Your Account has been successfully activated.</p>
+                                <a class="btn btn-primary w-75" href="{{ url_for('control_panel', id=current_user.id ) }}">Add your project</a>
                             </div>
 
                         {% endif %}
