@@ -1,14 +1,14 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap5
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_required, current_user, logout_user, login_user, UserMixin
-from flask_wtf.csrf import CSRFProtect
 from flask_ckeditor import CKEditor
-from forms import Makeaccount, LoginForm, Step1, Step2, Step3ProjectOwner, Step3Freelance, Start
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from flask_login import LoginManager, login_required, current_user, logout_user, login_user, UserMixin
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-import os
+from forms import Makeaccount, LoginForm, Step1, Step2, Step3ProjectOwner, Step3Freelance, Start
 
 
 class Base(DeclarativeBase):
@@ -24,6 +24,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 ckeditor = CKEditor(app)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///project.db'
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DB_URI', 'sqlite:///project.db')
 csrf = CSRFProtect(app)
 bootstrap = Bootstrap5(app)
@@ -40,13 +41,8 @@ class User(UserMixin, db.Model):
     password: Mapped[str] = mapped_column(unique=True, nullable=False)
     confirm: Mapped[bool] = mapped_column(nullable=False)
     onboarding: Mapped[bool] = mapped_column(nullable=True)
-    details = relationship('Details', back_populates='user', uselist=False)
 
-
-# Onboarding options model
-class Details(db.Model):
-    __tablename__ = 'details'
-    id: Mapped[int] = mapped_column(primary_key=True)
+    # Profile and onboarding details
     username: Mapped[str] = mapped_column(nullable=True)
     account_type: Mapped[int] = mapped_column(nullable=True)
     specialization: Mapped[str] = mapped_column(nullable=True)
@@ -54,8 +50,7 @@ class Details(db.Model):
     biography: Mapped[str] = mapped_column(nullable=True)
     skills: Mapped[str] = mapped_column(nullable=True)
     referral: Mapped[int] = mapped_column(nullable=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=True)
-    user = relationship('User', back_populates='details')
+
 
 
 # Create tables if not already created
@@ -127,16 +122,16 @@ def onboarding(id):
     form3_project_owner = Step3ProjectOwner()  # Step 3 for Project Owners
     form3_freelancer = Step3Freelance()  # Step 3 for Freelancers
 
-    new_details = Details()
     # finalize details addition
     def finish():
-        new_details.username = session.get('username')
-        new_details.account_type = session.get('account_type')
-        new_details.specialization = session.get('specialization')
-        new_details.job_title = session.get('job_title')
-        new_details.biography = session.get('biography')
-        new_details.skills = session.get('skills')
-        return finalize_onboarding(new_details)
+        user.username = session.get('username')
+        user.account_type = session.get('account_type')
+        user.specialization = session.get('specialization')
+        user.job_title = session.get('job_title')
+        user.biography = session.get('biography')
+        user.skills = session.get('skills')
+        return finalize_onboarding(user)
+
     # Check if onboarding is already completed
     if current_user.onboarding:
         return redirect(url_for("control_panel", id=current_user.id))
@@ -175,8 +170,7 @@ def onboarding(id):
     # Step 3: Project Owner
     elif session['step'] == 3:
         if form3_project_owner.validate_on_submit():
-            new_details.referral = form3_project_owner.referral.data
-            # Handle submission and complete onboarding for project owner
+            user.referral = form3_project_owner.referral.data
             finish()
             return redirect(url_for("control_panel", id=current_user.id))
         return render_template('onboarding.html', user=user, logged=current_user, form=form3_project_owner,
@@ -185,8 +179,6 @@ def onboarding(id):
     # Step 3: Freelancer
     elif session['step'] == 4:
         if form3_freelancer.validate_on_submit():
-            # Handle submission and complete onboarding for freelancer
-
             finish()
             return redirect(url_for("control_panel", id=current_user.id))
         return render_template('onboarding.html', user=user, logged=current_user, form=form3_freelancer,
@@ -197,12 +189,10 @@ def onboarding(id):
 
 
 # Helper function to finalize onboarding
-def finalize_onboarding(details):
-    details.user_id = current_user.id
-    current_user.onboarding = True
-    db.session.add(details)
+def finalize_onboarding(user):
+    user.onboarding = True
     db.session.commit()
-    # Clear onboarding session data
+    # Clear only the onboarding-related session data
     session.pop('step', None)
     session.pop('username', None)
     session.pop('account_type', None)

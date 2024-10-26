@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_ckeditor import CKEditorField
-from wtforms import StringField, EmailField, PasswordField, BooleanField, RadioField, SelectField, FileField, DateField, \
-    URLField
+from wtforms import (StringField, EmailField, PasswordField, BooleanField, RadioField, SelectField, FileField,
+                     DateField, URLField, SelectMultipleField)
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, Email, URL, Optional
 from flask_wtf.file import FileAllowed, FileRequired
@@ -43,14 +43,14 @@ class Step1(FlaskForm):
 
 # Step 2 Onboarding Form
 class Step2(FlaskForm):
-    specifics = SelectField('Specialization', choices=[
-        ('translate', 'Translate'),
-        ('web_design', 'Web design'),
-        ('web_development', 'Web development'),
-        ('illustrator', 'Illustrator'),
-        ('article_writing', 'Article Writing'),
-        ('graphic_design', 'Graphic Design'),
-        ('logo_design', 'Logo Design')
+    specifics =     SelectField('Specialization', choices=[
+        ('Translate', 'Translate'),
+        ('Web Design', 'Web design'),
+        ('Web Development', 'Web development'),
+        ('Illustrator', 'Illustrator'),
+        ('Article Writing', 'Article Writing'),
+        ('Graphic Design', 'Graphic Design'),
+        ('Logo Design', 'Logo Design')
     ])
     job_title = SelectField('Job Title', validators=[DataRequired()], choices=[('mobile_app', 'Mobile app'),
                                                                                ('web_site', 'Web site'),
@@ -59,13 +59,13 @@ class Step2(FlaskForm):
                                                                                ('other', 'Other')])
     biography = CKEditorField('Biography', validators=[DataRequired()])
     skills = SelectField('Skills', validators=[DataRequired()], choices=[
-        ('translate', 'Translate'),
-        ('web_design', 'Web design'),
-        ('web_development', 'Web development'),
-        ('illustrator', 'Illustrator'),
-        ('article_writing', 'Article Writing'),
-        ('graphic_design', 'Graphic Design'),
-        ('logo_design', 'Logo Design')
+        ('Translate', 'Translate'),
+        ('Web Design', 'Web design'),
+        ('Web Development', 'Web development'),
+        ('Illustrator', 'Illustrator'),
+        ('Article Writing', 'Article Writing'),
+        ('Graphic Design', 'Graphic Design'),
+        ('Logo Design', 'Logo Design')
     ])
     button = SubmitField('Next')
 

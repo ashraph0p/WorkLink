@@ -116,10 +116,9 @@ body {
     overflow: auto !important;
     background-color: #EAEAEA !important;
 }
-
-section article div {
-    background-color: white;
-    border-radius: 25%
+main .form-page article div {
+    background-color: white !important;
+    border-radius: 8px !important;
 }
 
 article form input {

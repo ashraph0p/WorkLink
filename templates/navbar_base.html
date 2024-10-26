@@ -1,21 +1,22 @@
 <style>
     .hover-effect:hover {
-    background-color: #CF5A17;
-        border-radius : 50%
+        background-color: #CF5A17;
+        border-radius: 50%
     }
+
     .dropdown-divider {
         background: #959595 !important;
     }
 </style>
 <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
     <div class="container">
-        {% if not logged.is_authenticated or request.endpoint == 'onboarding'  %}
+        {% if not logged.is_authenticated or request.endpoint == 'onboarding' %}
             <a class="navbar-brand d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none" href="/"><img
                     src="/static/base/logo_2.svg" alt=""></a>
 
         {% elif logged.is_authenticated and not request.endpoint == 'onboarding' %}
             <div class=" d-flex align-items-center mb-3 mb-md-0 me-md-auto ">
-            {#            Dropdown Stuff          #}
+                {#            Dropdown Stuff          #}
                 <div class="dropdown p-3 hover-effect">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none show"
                        data-bs-toggle="dropdown" aria-expanded="true">
@@ -34,7 +35,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        <li><a class="dropdown-item" href="/logout">Sign out</a></li>
                     </ul>
                 </div>
                 <div class="dropdown p-3 hover-effect">
@@ -69,15 +70,19 @@
                 <a href="/"><img src="/static/base/logo_2.svg" alt="" class=""></a>
             {% endif %}
             {% if not logged.is_authenticated or request.endpoint == 'onboarding' %}
-                <li class="nav-item"><a href="/sign-in" class="nav-link btn btn-outline-primary me-3">Sign in</a>
+                <li class="nav-item"><a href="/sign-in" class="nav-link btn btn-outline-primary mx-3 px-auto">Sign
+                    in</a>
                 </li>
-                <li class="nav-item"><a href="/join" class="nav-link active">Join</a></li>
+                <li class="nav-item"><a href="/join" class="nav-link active mx-3 px-4">Join</a></li>
             {% endif %}
         </ul>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                 aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V21.3333H28V24H4ZM4 17.3333V14.6667H28V17.3333H4ZM4 10.6667V8H28V10.6667H4Z"
+                      fill="white"></path>
+            </svg>
         </button>
         <div class="offcanvas offcanvas-end w-25 mb-auto" tabindex="-1" id="offcanvasNavbarDark"
              aria-labelledby="offcanvasNavbarDarkLabel" style="margin-top: 5.5%">
